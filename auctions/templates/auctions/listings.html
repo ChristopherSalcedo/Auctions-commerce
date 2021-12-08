@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if Listing %}
+    <h2>{{ Listing.Listing_Name }}</h2>
+        <div class="form-group">Category: {{ Listing.Category }}</div> 
+        <div style="float:left"><img src="{{Listing.Img.url}}" width="400" alt="400"></div>
+        <div class="form-group"><h5>${{ Listing.Price }}</h5>  <h6>{%if current%}{{current}}{%endif%} </h6></div> 
+        <div class="form-group">Number of bids: {{ Listing.nBids }}</div>
+        <div class="form-group"><h5>Dteils</h5>{{ Listing.Details }}</div>
+        <div class="form-group">Listed by: {{ Listing.ByUser }}</div>
+        <div class="form-group">Date: {{ Listing.Date }}</div>
+        {%if msg%}<div class="form-group">{{msg}}</div>{%endif%}
+            <form action="{% url 'listing' Listing.id %}" method="post">
+                {% csrf_token %}
+                <input autofocus value="Watchlist" class="btn btn-dark" type="submit" name="btnwatch" placeholder="Watchlist">
+                <div class="form-group">
+                    <input autofocus class="form-control" type="text" name="bid" placeholder="bid">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Purch">
+                <br><br> <hr>
+                <div class="form-group" >
+                    <textarea autofocus class="form-control"  name="com" placeholder="Comments"></textarea>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Comment">
+            </form> 
+            {%  if comment  %} 
+                <br>
+                {%  for comment in comment  %}
+                    <div class="card">
+                        <div class="card-body">
+                            <strong>{{comment.user}}</strong><br>
+                            <h6>{{comment.com}}</h6>
+                            {{comment.date}}
+                        </div>
+                    </div> <br>
+                {% endfor %}
+            {%else%} 
+                <h5>No comments here</h5>
+            {%endif%}
+    {% endif %}
+{% endblock %}

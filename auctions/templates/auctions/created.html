@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Created Listings</h2>
+    <ul>
+        {%if created%}
+            {% for created in created %}
+                <a href='{%url "listing" created.id %}'>
+                    <div class="text_box">
+                        <div style="float:left">
+                            <img src='{{created.Img.url}}' width="284" alt="284">
+                        </div>
+                        <div style="float:left; padding-left: 20px;" >
+                            <h4>{{created.Listing_Name}} </h4>
+                            Actual Price: ${{created.Price}} <br>
+                            Number of Bids: {{created.nBids}} <br>
+                            Date Created: {{created.Date}}
+                        </div>
+                        <div style="clear:both"/>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+                No item in Created List
+        {%endif%}
+    </ul>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+        
+            <h1><a href="{% url 'index' %}" class="nav-link">Auctions</a></h1>
+        
+            <div>
+                {% if user.is_authenticated %}
+                    <h6 style="color: antiquewhite;">Signed in as <strong>{{ user.username }}</strong>.</h6>
+                {% else %}
+                <h6 style="color: antiquewhite;"><strong>Not signed in</strong></h6>
+                {% endif %}
+            </div>
+                
+                <a class="nav-link" href="{% url 'index' %}"> <strong>Listings</strong></a>
+                
+            {% if user.is_authenticated %}
+                
+                    <a class="nav-link" href="{% url 'watchlist' %}"><strong>Watchlist</strong></a>
+                
+                    <a class="nav-link" href="{% url 'create_listing' %}"><strong>Create</strong></a>
+                
+                    <a class="nav-link" href="{% url 'created_list' %}"><strong>Created</strong></a>
+                
+                    <a class="nav-link" href="{% url 'bids_user' %}"><strong>Bids</strong></a>
+                
+                    <a class="nav-link" href="{% url 'logout' %}"><strong>Log Out</strong></a>
+            {% else %}
+                
+                    <a class="nav-link" href="{% url 'login' %}"><strong>Log In</strong></a>
+                
+                    <a class="nav-link" href="{% url 'register' %}"><strong>Register</strong></a>
+            {% endif %}
+        </nav>
+        <hr>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

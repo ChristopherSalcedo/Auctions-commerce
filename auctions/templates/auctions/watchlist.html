@@ -1,0 +1,31 @@
+
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watch List</h2>
+
+
+    <ul>
+        {%if watched%}
+            {% for watched in watched %}
+            <a href='{%url "listing" watched.WatchList.id %}'>
+            <div class="text_box">
+                <div style="float:left">
+                    <img src='{{watched.WatchList.Img.url}}' width="284" alt="284">
+                    </div>
+                <div style="float:left; padding-left: 20px;" >
+                    <h4>{{watched.WatchList.Listing_Name}} </h4>
+                    Actual Price: ${{watched.WatchList.Price}} <br>
+                    Bids: {{watched.WatchList.nBids}} <br>
+                    Date watched: {{watched.Date}}
+                </div>
+                <div style="clear:both"/>
+            </div>
+            </a>
+            {% endfor %}
+        {%else%}
+        <br>
+        <h5>No items in Watchlist</h5>
+        {%endif%}
+    </ul>
+{% endblock %}

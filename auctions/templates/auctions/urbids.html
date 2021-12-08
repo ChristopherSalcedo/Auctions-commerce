@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Current bids</h2>
+    <ul>
+        {%if bids %}
+            {% for bids in bids %}
+            <a href='{%url "listing" bids.BidList.id %}'>
+                <div class="text_box">
+                    <div style="float:left">
+                        <img src="{{bids.BidList.Img.url}}" width="284" alt="284">
+                    </div>
+                    <div style="float:left; padding-left: 20px;" >
+                        <h4>{{bids.BidList.Listing_Name}} </h4>
+                        Actual Price: ${{bids.BidList.Price}} <br>
+                        Bids offerd: ${{bids.Price}} <br>
+                        Date of bid: {{bids.Date}}
+                    </div>
+                </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            No bids in list
+        {%endif%}
+    </ul>
+{% endblock %}

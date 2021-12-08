@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+
+
+
+    <ul>
+        {% for ActiveBids in ActiveBids %}
+        <a href='{%url "listing" ActiveBids.id %}'>
+            <div class="card">
+                <div class="card-body">
+                    <div style="float:left">
+                        <img src="{{ActiveBids.Img.url}}" width="284" alt="284" >
+                    </div>
+                    <div style="float:left; padding-left: 20px;" >
+                        <h4>{{ActiveBids.Listing_Name}} </h4>
+                        Actual Price: ${{ActiveBids.Price}} <br>
+                        Bids: {{ActiveBids.nBids}} <br>
+                        {{ActiveBids.Date}}
+                    </div>
+                    <div style="clear:both"/>
+                </div>
+            </div> <br>
+        </a>
+        {% endfor %}
+    </ul>
+{% endblock %}

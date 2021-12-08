@@ -1,0 +1,31 @@
+
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+    {%if msg%}  {{msg}}  {%endif%}
+    <form action="{% url 'create_listing'%}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="listingname" placeholder="Name Lising" maxlength="150" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="price" placeholder="Unity Price" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" maxlength="600" type="text"  name="details" placeholder="Description" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="file" id="Image" name="Image" placeholder="Image" accept="image/png, image/jpeg" required>
+            </div>
+            <select class="form-control" name="category" required>
+                <option>----------------</option>
+                {%for category in category%}
+                <option>{{category}}</option>
+                {%endfor%}
+            </select>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+    
+{% endblock %}
