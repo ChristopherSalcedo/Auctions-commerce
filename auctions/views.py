@@ -88,7 +88,7 @@ def listing(request,Listing_id):
             else:
                 msgerror=" Error, the bid´s price is too low "
         else:
-            msgerror="The bid can't be empty"
+            msgerror="For purch yo need fill the bid form"
         
         if request.POST.get("com"):
             coment= str(request.POST["com"])
@@ -104,6 +104,22 @@ def listing(request,Listing_id):
         "comment":com,
         "msg" : msgerror
     }) 
+
+@login_required(login_url='/login/')
+def category(request):
+    category = Category.objects.all()
+    return render(request, "auctions/category.html",{
+        "category":category
+        })
+
+@login_required(login_url='/login/')
+def categories(request,categoryId):
+    cat = Category.objects.get(id = categoryId)
+    List_obj = Listings.objects.filter(Category=cat)
+    return render(request, "auctions/categories.html",{
+        "category":cat,
+        "item":List_obj
+        })
 
 @login_required(login_url='/login/')
 def urbids(request):
